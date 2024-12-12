@@ -21,7 +21,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal, ArrowUpDown, Star } from "lucide-react";
 
-const employees = [
+type Employee = {
+    id: number;
+    name: string;
+    role: string;
+    department: string;
+    productivity: number;
+    status: string;
+    aiRating: number;
+};
+
+const employees: Employee[] = [
     {
         id: 1,
         name: "Марат Ахмед",
@@ -74,9 +84,9 @@ export function EmployeeTable() {
     const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
     const sortedEmployees = [...employees].sort((a, b) => {
-        if (a[sortColumn] < b[sortColumn])
+        if (a[sortColumn as keyof Employee] < b[sortColumn as keyof Employee])
             return sortDirection === "asc" ? -1 : 1;
-        if (a[sortColumn] > b[sortColumn])
+        if (a[sortColumn as keyof Employee] > b[sortColumn as keyof Employee])
             return sortDirection === "asc" ? 1 : -1;
         return 0;
     });
